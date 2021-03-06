@@ -1,0 +1,5 @@
+0 const_input 0 0 
+1 generator 0 2 
+2 generator 0 4 
+3 flip_flop_d_latch 1 2
+
