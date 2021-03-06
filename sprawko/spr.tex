@@ -1,0 +1,74 @@
+\documentclass[a4paper,10pt]{article}
+
+%% Language and font encodings
+\usepackage[english,polish]{babel}
+%%\usepackage[utf8x]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{polski}
+%\usepackage[utf8]{inputenc}
+
+
+\usepackage[cp1250]{inputenc}
+
+%% Sets page size and margins
+\usepackage[a4paper,top=3cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+
+%% Useful packages
+\usepackage{amsmath}
+\numberwithin{equation}{subsection}
+\usepackage{graphicx}
+\usepackage{color}
+\newtheorem{twr}{Definicja}
+\usepackage{amsfonts}
+
+
+
+\usepackage{subfig}
+
+\usepackage{url}
+%\usepackage{hyperref}
+
+%opening
+\title{Symulator uk³adów logicznych}
+\author{Agnieszka Rabiej}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+Celem projektu by³o napisanie programu w jêzuku C++ 
+z wykorzystaniem techniki programowania obiektowego oraz poznanych struktur danych symuluj¹cego zachowanie siê uk³adów logicznych.
+\end{abstract}
+
+\section{Struktura projektu}
+Projekt sk³ada siê z czternastu klas odpowiedzialnych za reprezentowanie urz¹dzeñ elektronicznych oraz logikê programu.
+W projekcie zaimplementow³am klasy dla poszczególnych bramek logicznych (and, or, not, nand,...) oraz 23czysto virtualn¹ klasê
+logic gate, z której dziedzicz¹ poszczególne bramki. Klasa bazowa dla bramek dziedziczy z klasy electronic device odpowiedzialnej za
+reprezentowanie urz¹dzenia elektronicznego. Kolejno w moim projekcie napisa³am klasê generator, która odpowiada za reprezêtowanie generatora i równie¿
+dziedziczy z klasy electronic device. zaimplementowa³am klasy dla przerzutników D oraz JK oraz klasê reprezentuj¹c¹ sta³y sygna³ wejœciowy. Dla uogólnienia
+urz¹dzenia posiadaj¹ dwa wejœcia i jedno wyjœcie. Wejœcia to wskaŸniki na obiekty klasy electronic device a wyjœcie przechowuje umown¹ jednostkê
+czasu oraz wyliczon¹ wartoœæ. Ka¿da z klas posiada zaimplementowan¹ metodê get output(). Na klasach electronic device i logic gate
+sa to metody virtualne, po to aby ka¿da z klas korzysta³a z nadpisanej na sobie metody. Ca³a struktura danych w programie tworzy graf
+gdzie dowolnie ka¿dy element moze miec dwójkê dzieci, a i moze byæ dzieckiem dla wielu wierzcho³ków. W metodzie get output nastêpuj¹ wywo³ania 
+rekurencyjne tej metody na swoich dzieciach i tak a¿ napotkamy element wejœciowy ze sta³¹ wartoœci¹ typu bool na inpucie. Jeœli raz zostanie przeliczony
+jakiœ podgraf grafu reprezentuj¹cego nasz uk³ad to w danej umownej jednostce czasu nie bêdzie wyliczany poraz kolejny, poniewa¿
+pole output ma mo¿liwoœæ zapamietywania czasu oraz wartoœci. U¿ytkownik mo¿e równie¿ wybraæ, dla którego wierzcho³ka grafu chce wyliczyc wartoœæ koñcow¹.
+
+\subsection{Instrukcja obs³ugi programu}
+ Kroki, które nale¿y wykonaæ aby przetestowaæ swój uk³ad logiczny:
+\begin{itemize}
+ \item Przygotuj poprawny plik wejœciowy. W pliku kolejno linia po lini powinny znajdowaæ siê odpowiednio opisane urz¹dzenia 
+ tak aby program mógl zbudowaæ strukturê. Kolejno podajemy id obiektu, typ obiektu - zgodny z nazw¹ klasy, id urz¹dzenia,
+ które chcemy by by³o ustawione na inpucie pierwszym oraz id urz¹dzenia, które chcemy by by³o na inpucie drugim. W przypadku 
+ urz¹dzeñ reprezentuj¹cych wejœcia trzeci¹ wartoœci¹ jest wartoœæ sygna³u 0 lub 1, czwarta wartoœæ to dowolna liczba naturalna. W przypadku generatorów, 
+ na wejœciu podajemy jako trzeci¹ wartoœæ input, a 4 wartoœæ to okres. Dla przerzutników typu D input pierwszy to wejscie D,
+ a input drugi to wejscie C, a dla przerzutników typu JK input pierwszy to wejœcie J, a input drugi to wejœcie K.
+\item W³¹czamy program, i dostajemy pytanie, dla której bramki chcemy wykonaæ symulacjê oraz ile jednostek czasowych chcemy przesymulowaæ.
+Podajemy ID urz¹dzenia dla którego ma nast¹piæ symulacja oraz czas. Obie te wartoœci to liczby naturalne. Proces wykonywania symulacji
+mozemy powtarzaæ dla ró¿nych urz¹dzeñ, a¿ podamy na wejœciu wartoœæ -1 - oznacza to, ¿e chcemy zakoñczyæ.
+\item W wyniku dzia³ania programu dostajemy pliki tekstowe z wypisanymi rezultatami.
+
+\end{itemize}
+
+\end{document}
